@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^4.16.0
   provider: ^6.1.1
   # google_sign_inでエラーが出る！
+  # 5系でないとダメっぽい
   google_sign_in: ^5.4.4
 
 dev_dependencies:
