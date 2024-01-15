@@ -7,7 +7,13 @@ class IntroductionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('アプリの概要')),
+      appBar: AppBar(title: const Text('Let\'s Learning Flutter!'),
+      backgroundColor: const Color.fromARGB(255, 52, 191, 216),
+      actions: <Widget>[
+        IconButton(onPressed: (){
+          context.read<AuthenticationService>().signInWithGoogle();
+        }, icon: const Icon(Icons.login))
+      ],),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
