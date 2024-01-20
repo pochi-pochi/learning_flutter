@@ -6,27 +6,32 @@ import 'home_screen.dart';
 class IntroductionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // AuthenticationServiceを取得
+    final authService = Provider.of<AuthenticationService>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(title: const Text('Let\'s Learning Flutter!'),
       backgroundColor: const Color.fromARGB(255, 52, 191, 216),
       actions: <Widget>[
-        IconButton(onPressed: (){
-          context.read<AuthenticationService>().signInWithGoogle();
-        }, icon: const Icon(Icons.login))
+        IconButton(onPressed: () async {
+            // Googleでサインイン
+            final googleUser = await authService.signInWithGoogle();
+            if (googleUser != null) {
+              print("googleログイン成功!");
+              // Firebaseにサインイン
+              final firebaseUser = await authService.signInWithFirebase(googleUser);
+              if (firebaseUser != null) {
+                // ホーム画面にナビゲート
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
+              }
+            }
+          }, icon: const Icon(Icons.login))
       ],),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('このアプリの概要を説明するテキスト'),
-            ElevatedButton(
-              child: Text('Googleでログイン'),
-              onPressed: () {
-                // Googleログインの処理
-              },
-            ),
-          ],
-        ),
+      body: const Center(
+        child: Text("Flutter学習用アプリです。"),
       ),
     );
   }
