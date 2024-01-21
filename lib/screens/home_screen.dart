@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('講座リスト')),
+      backgroundColor: const Color.fromARGB(255, 52, 191, 216),
       body: ListView(
         children: <Widget>[
           DartBasicWidget(),

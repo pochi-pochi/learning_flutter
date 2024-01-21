@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_flutter/screens/DartBasic/BasicCaluclationScreen.dart';
 
 
 class BasicCaluculationWidget extends StatelessWidget {
@@ -6,7 +7,9 @@ class BasicCaluculationWidget extends StatelessWidget {
   Widget build(BuildContext context){
     return GestureDetector(
       onTap: (){
-
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => BasicCaluculationScreen()),
+        );
       },
       child: const Card(
         child: ListTile(
