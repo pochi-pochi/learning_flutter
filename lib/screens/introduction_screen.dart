@@ -10,7 +10,8 @@ class IntroductionScreen extends StatelessWidget {
     final authService = Provider.of<AuthenticationService>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Let\'s Learning Flutter!'),
+      appBar: AppBar(title: const Text('Let\'s Learning Flutter!',
+      style: TextStyle(color: Colors.white),),
       backgroundColor: const Color.fromARGB(255, 52, 191, 216),
       actions: <Widget>[
         IconButton(onPressed: () async {
@@ -30,8 +31,28 @@ class IntroductionScreen extends StatelessWidget {
             }
           }, icon: const Icon(Icons.login))
       ],),
-      body: const Center(
-        child: Text("Flutter学習用アプリです。"),
+      backgroundColor: Color.fromARGB(255, 146, 224, 238),
+      body: const SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            // ここから説明
+            Padding(
+              padding: EdgeInsets.fromLTRB(400, 30, 400, 0),
+              child: Text(
+                'Flutterを学ぼう！',
+                style: TextStyle(fontSize: 30),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(400, 30, 400, 30),
+              child: Text(
+                'Flutter!\n'
+                '詳細な説明とか書いてくよ!',
+              ),
+            ),     
+          ],
+        ),
       ),
     );
   }

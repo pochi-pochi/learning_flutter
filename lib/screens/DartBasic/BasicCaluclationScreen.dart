@@ -27,30 +27,55 @@ class _BasicCaluculationScreenState extends State<BasicCaluculationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('基本の計算'),
+        title: const Text('基本の計算',
+        style: TextStyle(color: Colors.white, fontSize: 20)),
+        backgroundColor: const Color.fromARGB(255, 52, 191, 216),
       ),
+      backgroundColor: const Color.fromARGB(255, 146, 224, 238),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // コンテンツの説明
-            Text('dartでは、四則演算などの計算ができます。'),
+            // ここから説明
+            const Padding(
+              padding: EdgeInsets.fromLTRB(400, 30, 400, 30),
+              child: Text(
+                'Dartでの四則演算',
+                style: TextStyle(fontSize: 30),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(400, 30, 400, 30),
+              child: Text(
+                'Dartでは、他の言語と同様に、四則演算などの基本的な演算ができます。\n'
+                '演算子としては、加算の「+」、減算の「-」、乗算の「*」、割り算の「/」等があります。',
+              ),
+            ),
+
+
             // コーディングテスト
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(400, 30, 400, 30),
               child: TextField(
                 controller: _codeController,
                 maxLines: 8,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'コードを入力してください',
                 ),
               ),
             ),
-            ElevatedButton(
-              onPressed: _evaluateCode,
-              child: Text('コードを評価'),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(400, 30, 400, 30),
+              child: ElevatedButton(
+                onPressed: _evaluateCode,
+                child: const Text('コードを評価'),
+              ),
             ),
-            Text(_feedback),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(400, 30, 400, 30),
+              child: Text(_feedback),
+            ),
           ],
         ),
       ),
