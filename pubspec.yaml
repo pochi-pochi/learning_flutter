@@ -41,7 +41,7 @@ dependencies:
   # google_sign_inでエラーが出る！
   # 5系でないとダメっぽい
   google_sign_in: ^5.4.4
-  cloud_firestore: ^4.10.0
+  cloud_firestore: ^4.1.0
 
 dev_dependencies:
   flutter_test:
