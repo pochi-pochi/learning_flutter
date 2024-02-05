@@ -33,20 +33,23 @@ class _BasicCaluculationScreenState extends State<BasicCaluculationScreen> {
     });
   }
 
-  // Firestoreから受講状況を確認する関数
   Future<void> _checkCourseCompletion(String courseId) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      final userCourseRef = FirebaseFirestore.instance.collection('users').doc(user.uid).collection('userCourses').doc(courseId);
-      final snapshot = await userCourseRef.get();
-      if (snapshot.exists && snapshot.data()?['finish'] == true) {
-        // 受講完了状態を更新
+      final userCourseRef = FirebaseFirestore.instance.collection('users').doc(user.uid).collection('userCourse').doc(courseId);
+      try {
+        final snapshot = await userCourseRef.get();
+        final isCompleted = snapshot.exists && snapshot.data()?['finish'] == true;
+        // UIを更新するためにsetStateを使用
         setState(() {
-          _isCourseCompleted = true;
+          _isCourseCompleted = isCompleted;
         });
+      } catch (e) {
+        print("エラーが発生しました: $e");
       }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,10 @@ class _BasicCaluculationScreenState extends State<BasicCaluculationScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(400, 30, 400, 30),
               child: ElevatedButton(
-                onPressed: _isCourseCompleted ? null : () => markCourseAsCompleted('DartBasic_BasicCaluclation'),
+                onPressed: _isCourseCompleted ? null : () async{
+                  await markCourseAsCompleted('DartBasic_BasicCaluclation');
+                  await _checkCourseCompletion('DartBasic_BasicCaluclation');
+                } ,
                 child: Text(_isCourseCompleted ? '受講完了！' : '受講済みにする'),
               ),
             ),
