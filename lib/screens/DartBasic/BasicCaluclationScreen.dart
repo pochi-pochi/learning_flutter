@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../services/complete_course.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BasicCaluculationScreen extends StatefulWidget {
   @override
@@ -8,6 +11,13 @@ class BasicCaluculationScreen extends StatefulWidget {
 class _BasicCaluculationScreenState extends State<BasicCaluculationScreen> {
   final TextEditingController _codeController = TextEditingController();
   String _feedback = '';
+  bool _isCourseCompleted = false; // 受講状況を追跡するフラグ
+
+  @override
+  void initState() {
+    super.initState();
+    _checkCourseCompletion('DartBasic_BasicCaluclation'); // 初期化時にコースの受講状況をチェック
+  }
 
   void _evaluateCode() {
     // ここにコード評価ロジックを実装
@@ -21,6 +31,21 @@ class _BasicCaluculationScreenState extends State<BasicCaluculationScreen> {
         _feedback = 'コードが間違っています。もう一度試してください。';
       }
     });
+  }
+
+  // Firestoreから受講状況を確認する関数
+  Future<void> _checkCourseCompletion(String courseId) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userCourseRef = FirebaseFirestore.instance.collection('users').doc(user.uid).collection('userCourses').doc(courseId);
+      final snapshot = await userCourseRef.get();
+      if (snapshot.exists && snapshot.data()?['finish'] == true) {
+        // 受講完了状態を更新
+        setState(() {
+          _isCourseCompleted = true;
+        });
+      }
+    }
   }
 
   @override
@@ -49,6 +74,14 @@ class _BasicCaluculationScreenState extends State<BasicCaluculationScreen> {
               child: Text(
                 'Dartでは、他の言語と同様に、四則演算などの基本的な演算ができます。\n'
                 '演算子としては、加算の「+」、減算の「-」、乗算の「*」、割り算の「/」等があります。',
+              ),
+            ),
+            // 受講状況に応じてボタンの表示を切り替え
+            Padding(
+              padding: const EdgeInsets.fromLTRB(400, 30, 400, 30),
+              child: ElevatedButton(
+                onPressed: _isCourseCompleted ? null : () => markCourseAsCompleted('DartBasic_BasicCaluclation'),
+                child: Text(_isCourseCompleted ? '受講完了！' : '受講済みにする'),
               ),
             ),
 
