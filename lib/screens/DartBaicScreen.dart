@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_flutter/widgets/DartBasic/BasicCaluculationWidget.dart';
+import 'package:learning_flutter/widgets/DartBasic/BasicCalculationWidget.dart';
 
 class DartBasicScreen extends StatelessWidget {
   @override
@@ -11,7 +11,7 @@ class DartBasicScreen extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 146, 224, 238),
       body: ListView(
         children: <Widget>[
-          BasicCaluculationWidget(),
+          BasicCalculationWidget(),
         ],
       ),
     );

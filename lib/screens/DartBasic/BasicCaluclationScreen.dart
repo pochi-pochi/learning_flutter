@@ -16,7 +16,7 @@ class _BasicCaluculationScreenState extends State<BasicCaluculationScreen> {
   @override
   void initState() {
     super.initState();
-    _checkCourseCompletion('DartBasic_BasicCaluclation'); // 初期化時にコースの受講状況をチェック
+    _checkCourseCompletion('DartBasic_BasicCalculation'); // 初期化時にコースの受講状況をチェック
   }
 
   void _evaluateCode() {
@@ -84,8 +84,8 @@ class _BasicCaluculationScreenState extends State<BasicCaluculationScreen> {
               padding: const EdgeInsets.fromLTRB(400, 30, 400, 30),
               child: ElevatedButton(
                 onPressed: _isCourseCompleted ? null : () async{
-                  await markCourseAsCompleted('DartBasic_BasicCaluclation');
-                  await _checkCourseCompletion('DartBasic_BasicCaluclation');
+                  await markCourseAsCompleted('DartBasic_BasicCalculation');
+                  await _checkCourseCompletion('DartBasic_BasicCalculation');
                 } ,
                 child: Text(_isCourseCompleted ? '受講完了！' : '受講済みにする'),
               ),
