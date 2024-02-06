@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning_flutter/widgets/DartBasic/BasicCalculationWidget.dart';
 import 'package:learning_flutter/widgets/DartBasic/SetupWidget.dart';
+import 'package:learning_flutter/widgets/DartBasic/IntroductionToDartWidget.dart';
 
 class DartBasicScreen extends StatelessWidget {
   @override
@@ -14,6 +15,7 @@ class DartBasicScreen extends StatelessWidget {
         children: <Widget>[
           SetupWidget(),
           BasicCalculationWidget(),
+          IntroductionToDartWidget(),
         ],
       ),
     );

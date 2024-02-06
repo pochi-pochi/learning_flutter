@@ -6,18 +6,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class SetupScreen extends StatefulWidget {
+class IntroductionToDartScreen extends StatefulWidget {
   @override
-  _SetupScreenState createState() => _SetupScreenState();
+  _IntroductionToDartScreenState createState() => _IntroductionToDartScreenState();
 }
 
-class _SetupScreenState extends State<SetupScreen> {
+class _IntroductionToDartScreenState extends State<IntroductionToDartScreen> {
   bool _isCourseCompleted = false; // 受講状況を追跡するフラグ
 
   @override
   void initState() {
     super.initState();
-    _checkCourseCompletion('DartBasic_Setup'); // 初期化時にコースの受講状況をチェック
+    _checkCourseCompletion('DartBasic_IntroductionToDart'); // 初期化時にコースの受講状況をチェック
   }
 
   Future<void> _checkCourseCompletion(String courseId) async {
@@ -55,47 +55,35 @@ class _SetupScreenState extends State<SetupScreen> {
             const Padding(
               padding: EdgeInsets.fromLTRB(400, 30, 400, 30),
               child: Text(
-                '環境構築',
+                'Introduction to Dart',
                 style: TextStyle(fontSize: 30),
               ),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(400, 30, 400, 0),
-              child: IconButton(onPressed: ()=>launchUrlString('https://dart.dev/overview'), icon: Icon(Icons.description))
+              child: IconButton(onPressed: ()=>launchUrlString('https://dart.dev/language'), icon: Icon(Icons.description))
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(400, 0, 400, 0),
               child: Text(
-                'dartは、プログラミング言語のひとつで、以下のような特徴があります。\n'
-                '・UI用に最適化されている\n・生産性の高い開発ができる\n・すべてのプラットフォームで高速に動作する\n・オブジェクト指向を含むマルチパラダイム言語\n'
-                '                                                                                        等\n',
+                'ここからの内容は、dart公式ページの内容を和訳したものになります。対照ページは、上のボタンから参照してください。\n'
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(400, 30, 400, 0),
-              child: IconButton(onPressed: ()=>launchUrlString('https://docs.flutter.dev/get-started/install'), icon: Icon(Icons.description))
             ),
             const Padding(
-              padding: EdgeInsets.fromLTRB(400, 0, 400, 0),
+              padding: EdgeInsets.fromLTRB(400, 10, 400, 10),
               child: Text(
-                'flutter SDKには、dart用のツールが同梱されているので、これを用いて環境開発を行います。\n'
-                '上記のボタンからflutter SDKのページに飛べるので、ダウンロードした後、Cドライブ直下の「src」フォルダ内等に「flutter」フォルダを配置、パスを通してください。\n'
-                'パスが通ったことを確認してください。\n',
+                '・Hello World\n'
+                'すべてのアプリは実行を開始するためのトップレベルのmain関数が必要になります。明示的に値を返さない場合はvoidを返すようにします。\n'
+                'コンソールにテキストを表示したい場合、トップレベルのprint関数を使うことができます。\n'
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(400, 0, 400, 0),
-              child: Center(
-                child: Image.asset('images/check_version.png'),
-              )
             ),
             // 受講状況に応じてボタンの表示を切り替え
             Padding(
               padding: const EdgeInsets.fromLTRB(400, 30, 400, 30),
               child: ElevatedButton(
                 onPressed: _isCourseCompleted ? null : () async{
-                  await markCourseAsCompleted('DartBasic_Setup');
-                  await _checkCourseCompletion('DartBasic_Setup');
+                  await markCourseAsCompleted('DartBasic_IntroductionToDart');
+                  await _checkCourseCompletion('DartBasic_IntroductionToDart');
                 } ,
                 child: Text(_isCourseCompleted ? '受講完了！' : '受講済みにする'),
               ),
